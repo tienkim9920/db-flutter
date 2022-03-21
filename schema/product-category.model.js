@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
 
-const Permission = db.define('permission', {
+const ProductCategory = db.define('product-category', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -12,8 +12,8 @@ const Permission = db.define('permission', {
     },
 })
 
-// Permission.sync().then(() => {
+// ProductCategory.sync().then(() => {
 //     console.log('table created');
 // });
 
-module.exports = Permission;
+module.exports = ProductCategory;

@@ -1,8 +1,8 @@
-const express = require('express')
-const Permission = require('../schema/permission.model')
-const User = require('../schema/user.model')
+const express = require('express');
+const Permission = require('../schema/permission.model');
+const User = require('../schema/user.model');
 
-const router = express.Router()
+const router = express.Router();
 
 router.get('/', async (req, res) => {
 
@@ -12,18 +12,18 @@ router.get('/', async (req, res) => {
                 model: Permission
             }
         ]
-    })
+    });
 
-    res.json(users)
+    res.json(users);
 
 })
 
 router.post('/', async (req, res) => {
 
-    const user = await User.create(req.body)
+    const user = await User.create(req.body);
 
-    res.json(user)
+    res.json(user);
 
 })
 
-module.exports = router
+module.exports = router;

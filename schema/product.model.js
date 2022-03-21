@@ -1,42 +1,36 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const Permission = require('./permission.model')
+const ProductCategory = require('./product-category.model')
 
-const User = db.define('user', {
+const Product = db.define('product', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    username: {
+    name: {
         type: Sequelize.STRING
     },
-    password: {
-        type: Sequelize.STRING
-    },
-    fullname: {
-        type: Sequelize.STRING
-    },
-    address: {
+    price: {
         type: Sequelize.STRING
     },
     image: {
         type: Sequelize.STRING
     },
-    score: {
+    describe: {
         type: Sequelize.STRING
     },
-    permissionId: {
+    productCategoryId: {
         type: Sequelize.INTEGER
-    }
+    },
 })
 
-Permission.hasMany(User, { foreignKey: 'permissionId' })
-User.belongsTo(Permission);
+ProductCategory.hasMany(Product, { foreignKey: 'productCategoryId' })
+Product.belongsTo(ProductCategory);
 
-// User.sync().then(() => {
+// Product.sync().then(() => {
 //     console.log('table created');
 // });
 
-module.exports = User;
+module.exports = Product;
 
