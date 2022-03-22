@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const cors = require("cors");
 
 const app = express();
 
@@ -13,6 +14,8 @@ try {
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }
+
+app.use(cors());
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));

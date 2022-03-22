@@ -17,6 +17,9 @@ const User = db.define('user', {
     fullname: {
         type: Sequelize.STRING
     },
+    email: {
+        type: Sequelize.STRING
+    },
     address: {
         type: Sequelize.STRING
     },
