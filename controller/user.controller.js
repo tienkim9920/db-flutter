@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 
 })
 
+// SignUp
 router.post('/', async (req, res) => {
 
     const { email, username } = req.body;
@@ -29,7 +30,6 @@ router.post('/', async (req, res) => {
     });
 
     if (checkingEmail){
-        console.log("123");
         return res.status(400).send('Email has already been used');
     }else {
         const checkingUsername = await User.findOne({
@@ -47,7 +47,29 @@ router.post('/', async (req, res) => {
             return res.status(200).send('Register successfully');
         }
     }
+})
 
+router.post('/signin', async (req, res) => {
+
+    const { username, password } = req.body;
+    
+    const user = await User.findOne({
+        where: { username }
+    });
+
+    if (!user){
+        return res.status(400).send('Username is invalid');
+    }else {
+        const auth = await bcrypt.compare(password, user.password);
+
+        if (!auth){
+            return res.status(400).send('Password is invalid');
+        }else {
+            var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
+            
+            return res.status(200).json(token);
+        }
+    }
 })
 
 module.exports = router;
