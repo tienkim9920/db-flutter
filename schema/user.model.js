@@ -17,11 +17,16 @@ const User = db.define('user', {
     fullname: {
         type: Sequelize.STRING
     },
+    phone: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     email: {
         type: Sequelize.STRING
     },
     address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
     },
     image: {
         type: Sequelize.STRING

@@ -20,6 +20,26 @@ router.get('/', async (req, res) => {
 
 })
 
+router.post('/edit', async (req, res) => {
+
+    const { userId, fullname, email, address, phone } = req.body;
+
+    const user = await User.findOne({
+        where: { id: userId }
+    });
+
+    user.fullname = fullname;
+    user.email = email;
+    user.address = address;
+    user.phone = phone;
+
+    await user.save();
+
+    var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
+            
+    return res.status(200).json(token);
+})
+
 // SignUp
 router.post('/', async (req, res) => {
 
