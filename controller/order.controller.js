@@ -5,6 +5,7 @@ const OrderDetail = require('../schema/order-detail.model');
 const Order = require('../schema/order.model');
 const Payment = require('../schema/payment.model');
 const User = require('../schema/user.model');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -40,7 +41,12 @@ router.post('/', async (req, res) => {
 
     await user.save();
 
-    return res.status(200).send('Order successfully');
+    var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
+
+    return res.status(200).send({
+        orderId: order.id,
+        token
+    });
 })
 
 router.get('/:id', async (req, res) => {

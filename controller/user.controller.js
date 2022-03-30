@@ -92,4 +92,27 @@ router.post('/signin', async (req, res) => {
     }
 })
 
+router.post('/password', async (req, res) => {
+    const { userId, password, newPassword } = req.body;
+
+    const user = await User.findOne({
+        where: { id: userId }
+    });
+
+    const auth = await bcrypt.compare(password, user.password);
+
+    if (!auth){
+        return res.status(400).send('Password is invalid');
+    }else {
+
+        const passwordHash = await bcrypt.hash(newPassword, 10);
+        user.password = passwordHash;
+        await user.save();
+
+        var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
+        
+        return res.status(200).json(token);
+    }
+})
+
 module.exports = router;

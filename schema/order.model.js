@@ -26,7 +26,8 @@ const Order = db.define('order', {
         type: Sequelize.BOOLEAN
     },
     note: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true
     },
     userId: {
         type: Sequelize.INTEGER
