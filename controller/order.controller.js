@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
     var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
 
     return res.status(200).send({
-        orderId: order.id,
+        order,
         token
     });
 })

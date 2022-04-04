@@ -59,7 +59,7 @@ router.get('/category', async (req, res) => {
 router.get('/category/count', async (req, res) => {
 
     const countProduct = await db.query(
-        'SELECT "product-category"."id" AS "id", "product-category"."name" AS "name", COUNT("product-category"."id") AS "countProduct" FROM "products" AS "product" LEFT OUTER JOIN "product-categories" AS "product-category" ON "product"."productCategoryId" = "product-category"."id" GROUP BY "product-category"."id"', 
+        'SELECT "product-category"."id" AS "id", "product-category"."name" AS "name", COUNT("product-category"."id") AS "countProduct" FROM "products" AS "product" LEFT OUTER JOIN "product-categories" AS "product-category" ON "product"."productCategoryId" = "product-category"."id" GROUP BY "product-category"."id"',
         { type: Sequelize.QueryTypes.SELECT });
 
     return res.status(200).json(countProduct);
@@ -78,8 +78,25 @@ router.get('/category/count', async (req, res) => {
     // });
 })
 
+router.get('/search', async (req, res) => {
+
+    const { keyword } = req.query;
+
+    const product = await Product.findAll({
+        where: {
+            name: {
+                $like: `%${keyword}%`
+            }
+        },
+        include: [{ 
+            model: ProductCategory 
+        }]
+    })
+    return res.status(200).json(product);
+})
+
 router.get('/:id', async (req, res) => {
-    
+
     const { id } = req.params
 
     const product = await Product.findOne({

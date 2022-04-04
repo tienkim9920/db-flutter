@@ -16,7 +16,14 @@ router.post('/', async (req, res) => {
 
     const feedback = await Feedback.create(req.body);
 
-    res.json(feedback);
+    const resFeedback = await Feedback.findOne({
+        where: { id: feedback.id },
+        include: [
+            { model: User }
+        ]
+    });
+
+    res.json(resFeedback);
 
 })
 

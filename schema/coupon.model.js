@@ -9,9 +9,6 @@ const Coupon = db.define('coupon', {
         autoIncrement: true,
         primaryKey: true
     },
-    code: {
-        type: Sequelize.STRING
-    },
     status: {
         type: Sequelize.BOOLEAN
     },
