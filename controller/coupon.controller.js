@@ -36,4 +36,16 @@ router.post('/', async (req, res) => {
 
 })
 
+router.get('/:id', async (req, res) => {
+
+    const { id } = req.params;
+
+    const coupons = await Coupon.findAll({
+        where: { userId: id }
+    });
+
+    return res.status(200).send(coupons);
+
+})
+
 module.exports = router;

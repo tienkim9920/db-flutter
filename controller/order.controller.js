@@ -6,6 +6,7 @@ const Order = require('../schema/order.model');
 const Payment = require('../schema/payment.model');
 const User = require('../schema/user.model');
 const jwt = require('jsonwebtoken');
+const Coupon = require('../schema/coupon.model');
 
 const router = express.Router();
 
@@ -40,6 +41,16 @@ router.post('/', async (req, res) => {
     user.score = parseInt(user.score) + 500;
 
     await user.save();
+
+    if (couponId){
+        const coupon = await Coupon.findOne({
+            where: { id: couponId }
+        });
+
+        coupon.status = true;
+
+        await coupon.save();
+    }
 
     var token = jwt.sign({ user: user }, 'hackermantuoicailollunnhahaga');
 
