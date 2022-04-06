@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
 router.post('/edit', async (req, res) => {
 
-    const { userId, fullname, email, address, phone } = req.body;
+    const { userId, fullname, email, address, phone, image } = req.body;
 
     const user = await User.findOne({
         where: { id: userId }
@@ -32,6 +32,7 @@ router.post('/edit', async (req, res) => {
     user.email = email;
     user.address = address;
     user.phone = phone;
+    user.image = image;
 
     await user.save();
 
