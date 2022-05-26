@@ -60,6 +60,19 @@ router.post('/', async (req, res) => {
     });
 })
 
+router.patch('/:id', async (req, res) => {
+    const { delivery } = req.query;
+
+    const order = await Order.findOne({
+        where: { id: req.params.id }
+    })
+
+    order.delivery = delivery;
+    order.save();
+    
+    res.json(order);
+})
+
 router.get('/:id', async (req, res) => {
     const order = await Order.findOne({
         where: { id: req.params.id },
